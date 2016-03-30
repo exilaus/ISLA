@@ -29,6 +29,7 @@ class MyHandler(BaseHTTPRequestHandler):
      def do_POST(self):
        global rootnode
        try:
+          roote.destroy()
 	  ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
           if ctype == 'multipart/form-data':
               query=cgi.parse_multipart(self.rfile, pdict)
@@ -46,8 +47,8 @@ class MyHandler(BaseHTTPRequestHandler):
           z=0
           x=1
           ser = serial.Serial('com3', 9600) 
-          # ser.write(srting) #invia stringa
-          # print ser.readline() # leggi stringa
+        # ser.write(srting) #invia stringa
+        # print ser.readline() # leggi stringa
 
           dirlist = os.listdir('.\slices')
           
@@ -115,7 +116,20 @@ def main():
     try:
         server = HTTPServer(('', 80), MyHandler)
         print 'started httpserver...'
-        server.serve_forever()
+        
+        roote = Tkinter.Tk()
+        global roote
+        roote.attributes("-fullscreen", True)
+        roote.attributes("-topmost", True)
+        image1 = Image.open('black.jpg')
+        roote.geometry('%dx%d' % (image1.size[0],image1.size[1]))
+        tkpii = ImageTk.PhotoImage(image1)
+        label_image1 = Tkinter.Label(roote, image=tkpii)
+        label_image1.place(x=0,y=0,width=image1.size[0],height=image1.size[1])
+        roote.after(100, lambda: server.serve_forever())
+        roote.mainloop()
+        
+        
     except KeyboardInterrupt:
         print '^C received, shutting down server'
         server.socket.close()
