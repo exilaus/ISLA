@@ -24,4 +24,4 @@ to do list:
 
 why no use nanodlp? based on rpi/linux and i have a wintab...and no open :)
 
-Moral support for [SLAcer project] (http:\\lautr3k.github.io/SLAcer.js/)
+Moral support for Sébastien Mischler [SLAcer project] (http:\\lautr3k.github.io/SLAcer.js/)
